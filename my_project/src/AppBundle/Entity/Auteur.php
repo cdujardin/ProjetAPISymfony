@@ -40,14 +40,20 @@ class Auteur
     /**
      * @var string
      *
-     * @ORM\Column(name="coupeDeCheveux", type="string", length=255)
+     * @ORM\Column(name="coupeDeCheveux", type="string", length=255, nullable=true)
      */
     private $coupeDeCheveux;
-    /**
-    * @ORM\ManyToOne(targetEntity="Auteur", mappedBy="articles")
-    */
-    private $articles;
 
+    /**
+        * @var ArrayCollection
+
+        * @ORM\OneToMany(targetEntity="Article", mappedBy="auteur")
+        */
+     private $articles;
+
+     public function __construct(){
+          $this->articles = new ArrayCollection();
+     }
     /**
      * Get id
      *
@@ -129,6 +135,7 @@ class Auteur
     {
         return $this->coupeDeCheveux;
     }
+
     /**
     * Add article
     *
@@ -138,43 +145,44 @@ class Auteur
     */
     public function addArticle(Article $article)
     {
-              $this ->articles[] = $article;
+         $this->articles[] = $article;
 
-              return $this;
-   }
-   /**
-   * Remove article
-   *
-   * @param Article $article
-   *
-   * @return Auteur
-   */
-   public function removeArticle(Article $article)
-   {
-             $this->articles->removeElement($article);
+         return $this;
+    }
 
-             return $this;
-   }
-   /**
-   * Get Articles
-   *
-   * @return ArrayCollection
-   *
-   */
-   public function getArticles()
-   {
-             return $this->articles;
-   }
-   /**
-   * Set Articles
-   *
-   * @param ArrayCollection $articles cette liste doit impérativement contenir exclusiivement des objets de type Article
-   *
-   */
-   public function setArticles(ArrayCollection $articles)
-   {
-             $this->articles = $articles;
+    /**
+    * Remove article
+    *
+    * @param Article $article
+    *
+    * @return Auteur
+    */
+    public function removeArticle(Article $article)
+    {
+         $this->articles->removeElement($article);
 
-             return $this;
-   }
+         return $this;
+    }
+    /**
+    * Get articles
+    * @return ArrayCollection
+    */
+    public function getArticle()
+    {
+         return $this->articles;
+    }
+
+    /**
+    * Set articles
+    *
+    * @param ArrayCollection $articles cette liste doit  contenir exclusivement des objets de type Article
+    *
+    * @return Auteur
+    */
+    public function setArticles(ArrayCollection $articles)
+    {
+         $this->auteurs = $auteurs;
+
+         return $this;
+    }
 }

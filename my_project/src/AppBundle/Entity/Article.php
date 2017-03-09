@@ -42,12 +42,12 @@ class Article
      * @ORM\Column(name="publication", type="datetime")
      */
     private $publication;
-    /**
-    * One Product has Many Features.
-    * @ORM\OneToMany(targetEntity="Article", mappedBy="auteur")
-    */
-    private $articles;
 
+    /**
+       * @ORM\ManyToOne(targetEntity="Auteur", inversedBy="articles")
+       * @ORM\JoinColumn(name="auteur_id", referencedColumnName="id")
+       */
+      private $auteur;
     /**
      * Get id
      *
@@ -129,27 +129,26 @@ class Article
     {
         return $this->publication;
     }
-    /**
-    * Set auteur
+
+     /**
+     *Set auteur
+     * @param Auteur $auteur
+     *
+     * @return Article
+     */
+    public function setAuteur(Auteur $auteur)
+    {
+         $this->auteur = $auteur;
+
+         return $this;
+    }
+    /*
+    * Get auteur
     *
-    * @param Auteur $auteur cette variable contient un auteur
-    *
-    * @return $this
+    * @return Auteur
     */
-
-    public function setAuteur(Auteur $auteur){
-              $this->auteur = $auteur;
-
-              return $this;
-   }
-   /**
-   * Get auteur
-   *
-   * @return Auteur
-   *
-   *
-   */
-   public function getAuteur(){
-             return $this -> Auteur;
-   }
+    public function getAuteur()
+    {
+         return $this;
+    }
 }
